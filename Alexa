@@ -1,0 +1,70 @@
+import pyttsx3 #pip install pyttsx3
+import datetime
+import speech_recognition as sr
+import wikipedia
+import smtplib
+import webbrowser as wb 
+import os
+import pyautogui
+import psutil
+import pyjokes
+#11111111111111111
+engine = pyttsx3.init()
+voices = engine.getProperty('voices')
+engine.setProperty('voice' , voices[1].id)# index for female voice
+newVoiceRate = 160
+engine.setProperty('rate',newVoiceRate)
+ 
+ #222222222222
+def speak(audio):
+    engine.say(audio)
+    engine.runAndWait()
+#33333333333333
+def time():
+    Time=datetime.datetime.now().strftime("IH:IM:IS")
+    speak(Time)
+ #44444444444444   
+def date():
+    year=int(datetime.datetime.now().year)
+    month=int(datetime.datetime.now().month)
+    day=int(datetime.datetime.now().day)
+    speak("the current date is")
+    speak(day)
+    speak(month)
+    speak(year)
+
+#5555555555555555
+def wishme():
+    speak("welcome back sir ")
+    date()
+    speak("how can i help you sir have a nice day")
+    hour = int(datetime.datetime.now().hour)
+    if 6<=hour<=12:
+        speak("Good Morning")
+    elif 12<hour<=16 :
+        speak("Good Afternoon")
+    elif 16<hour<=22:
+        speak("Good Evening")
+    else:
+        speak("Good night")
+ #6666666666666666       
+def TakeCommand():
+    r = sr.Recognizer()
+    with sr.Microphone() as source :
+        print("Listening........")
+        r.pause.thresold = 1
+        audio = r.listen(source)
+
+    try:
+        print("Recongnizing....")
+        query = r.recognize_google(audio,'en=US')
+        print(query)
+    except Exception as e:
+        print(e)
+        speak("say that again please.....")
+
+        return "None"
+    return query
+#6666666666666666
+
+speak("Hello World!")
